@@ -1,0 +1,14 @@
+{
+  "name": "generator-elgin",
+  "version": "0.0.1",
+  "description": "Yeoman generator for AngularJS, Express, Nunjucks and Mongo backend.",
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.20.3"
+  }
+}
