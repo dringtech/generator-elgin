@@ -2,30 +2,30 @@ var <%= appname %>App = angular.module('<%= appname %>App', [
   'ngRoute', 'ngResource', 'mgcrea.ngStrap'
 ]);
 
-metamanApp.config(['$routeProvider',
+<%= appname %>App.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
         templateUrl: '/partials/main.html',
-        controller: 'metamanMainController as ctrl'
+        controller: '<%= appname %>MainController as ctrl'
       }).
       when('/about', {
         templateUrl: '/partials/about.html',
-        controller: 'metamanAboutController as ctrl'
+        controller: '<%= appname %>AboutController as ctrl'
       }).
       otherwise({
         redirectTo: '/'
       });
   }]);
 
-metamanApp.controller('metamanMainController', ['$log', '$location',
+<%= appname %>App.controller('<%= appname %>MainController', ['$log', '$location',
     function( $log, $location ) {
       $log.info('main controller initialising');
       var self = this;
     }
     ]);
 
-metamanApp.controller('metamanAboutController', ['$log',
+<%= appname %>App.controller('<%= appname %>AboutController', ['$log',
     function($log) {
         $log.info('about controller initialising');
     }

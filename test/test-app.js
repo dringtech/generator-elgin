@@ -44,11 +44,16 @@ describe('elgin:app', function () {
     ]);
   });
 
-  it('tailors and cusomises frontend files', function() {
+  it('customises frontend view files', function() {
     var namePattern = new RegExp('ng-app="'+appConfig.appname+'App"');
     assert.fileContent('frontend/views/main.html', namePattern);
     var titlePattern = new RegExp('{% set page_title = '+appConfig.title+' %}')
     assert.fileContent('frontend/views/main.html', namePattern);
+  })
+
+  it('customises the angular app', function() {
+    var appPattern = new RegExp('var '+appConfig.appname+'App = angular.module\\(\''+appConfig.appname+'App\'');
+    assert.fileContent('frontend/public/js/main.js', appPattern);
   })
 
   it('creates backend files', function() {
