@@ -1,4 +1,4 @@
-# generator-elgin [![Build Status](https://secure.travis-ci.org/dringtech/generator-elgin.png?branch=master)](https://travis-ci.org/dringtech/generator-elgin)
+# generator-elgin [![Build Status](https://secure.travis-ci.org/dringtech/generator-elgin.png?branch=master)](https://travis-ci.org/dringtech/generator-elgin) [![Coverage Status](https://coveralls.io/repos/dringtech/generator-elgin/badge.svg?branch=master&service=github)](https://coveralls.io/github/dringtech/generator-elgin?branch=master)
 
 > [Yeoman](http://yeoman.io) generator
 
