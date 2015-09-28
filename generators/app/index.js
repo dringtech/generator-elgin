@@ -84,7 +84,7 @@ module.exports = MyBase.extend({
         self.fs.copy(self.templatePath(path), self.destinationPath(path));
       };
 
-      ['bin/app', 'app.js'].map(doop);
+      ['bin/app', 'app.js', 'backend/', 'frontend/'].map(doop);
     }
   },
 

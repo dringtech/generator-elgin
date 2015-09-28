@@ -31,6 +31,14 @@ describe('elgin:app', function () {
     ]);
   });
 
+  it('creates frontend files', function() {
+    assert.file(['frontend/index.js']);
+  });
+
+  it('creates backend files', function() {
+    assert.file(['backend/index.js']);
+  });
+
   it('customises package.json file', function() {
     var namePattern = new RegExp('"name"\\s*:\\s*"'+appConfig.appname+'"')
     assert.fileContent('package.json', namePattern);
