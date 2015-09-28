@@ -1,0 +1,10 @@
+{
+  "name": "<%= appname %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "scripts": {
+    "start": "node ./bin/app"
+  },
+  "dependencies": {},
+  "license": "<%= license %>"
+}

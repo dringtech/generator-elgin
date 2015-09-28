@@ -1,0 +1,4 @@
+{
+  "name": "<%= appname %>-app-backend",
+  "version": "<%= version %>"
+}
