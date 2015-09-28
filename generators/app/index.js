@@ -23,6 +23,11 @@ module.exports = MyBase.extend({
         default : this.appname // Default to current folder name
       }, {
         type    : 'input',
+        name    : 'title',
+        message : 'Your project title',
+        default : 'Superawesome Elgin App'
+      }, {
+        type    : 'input',
         name    : 'description',
         message : 'A brief description of your project',
         default : 'A project scaffolded with `elgin`'
@@ -45,24 +50,26 @@ module.exports = MyBase.extend({
       done();
     }.bind(this));
   },
-
+  configuring: function() {
+    this.templateVariables = {
+      appname: this.config.get('appname'),
+      title: this.config.get('title'),
+      description: this.config.get('description'),
+      version: this.config.get('version'),
+      license: this.config.get('license')
+    };
+  },
   writing: {
     app: function () {
-      var templateVars = {
-        appname: this.config.get('appname'),
-        description: this.config.get('description'),
-        version: this.config.get('version'),
-        license: this.config.get('license')
-      };
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
-        templateVars
+        this.templateVariables
       );
       this.fs.copyTpl(
         this.templatePath('_bower.json'),
         this.destinationPath('bower.json'),
-        templateVars
+        this.templateVariables
       );
     },
 
@@ -75,13 +82,22 @@ module.exports = MyBase.extend({
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
       );
+      this.fs.copyTpl(
+        this.templatePath('bowerrc'),
+        this.destinationPath('.bowerrc'),
+        this.templateVariables
+      );
     },
 
     appfiles: function() {
       var self=this;
 
       var doop = function doop(path) {
-        self.fs.copy(self.templatePath(path), self.destinationPath(path));
+        self.fs.copyTpl(
+          self.templatePath(path),
+          self.destinationPath(path),
+          self.templateVariables
+        );
       };
 
       ['bin/app', 'app.js', 'backend/', 'frontend/'].map(doop);
@@ -96,7 +112,7 @@ module.exports = MyBase.extend({
           "debug@^2.2.0",
           "express@^4.13.3",
           "morgan@^1.6.1"
-        ], { 'saveDev': true });
+        ], { 'save': true });
     },
     backend: function() {
       this.npmInstall(
@@ -108,8 +124,25 @@ module.exports = MyBase.extend({
           "method-override@^2.3.5",
           "mongoose@^4.1.8",
           "mongoose-rest-ready@^0.1.0"
-        ]
-      )
+        ], { 'save': true }
+      );
+    },
+    frontend: function() {
+      this.npmInstall(
+        [
+          "express@^4.12.3",
+          "nunjucks@^1.3.4"
+        ], { 'save': true }
+      );
+      this.bowerInstall(
+        [
+          'angular',
+          'angular-route',
+          'angular-resource',
+          'angular-strap',
+          'bootstrap'
+        ], { 'save': true }
+      );
     },
     catchall: function() {
       this.installDependencies();

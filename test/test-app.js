@@ -26,14 +26,30 @@ describe('elgin:app', function () {
       'package.json',
       '.editorconfig',
       '.jshintrc',
+      '.bowerrc',
       'bin/app',
       'app.js'
     ]);
   });
 
   it('creates frontend files', function() {
-    assert.file(['frontend/index.js']);
+    assert.file([
+      'frontend/index.js',
+      'frontend/public/css/main.css',
+      'frontend/public/js/main.js',
+      'frontend/public/partials/main.html',
+      'frontend/public/partials/about.html',
+      'frontend/views/base.html',
+      'frontend/views/main.html'
+    ]);
   });
+
+  it('tailors and cusomises frontend files', function() {
+    var namePattern = new RegExp('ng-app="'+appConfig.appname+'App"');
+    assert.fileContent('frontend/views/main.html', namePattern);
+    var titlePattern = new RegExp('{% set page_title = '+appConfig.title+' %}')
+    assert.fileContent('frontend/views/main.html', namePattern);
+  })
 
   it('creates backend files', function() {
     assert.file(['backend/index.js']);
@@ -48,6 +64,8 @@ describe('elgin:app', function () {
 
   it.skip('creates an executable startup script', function () {
     assert(fs.accessSync('bin/app', fs.X_OK),'bin/app not executable');
+    var messagePattern = new RegExp('debug(.*?'+appConfig.appname+' App listening at http://')
+    debug('<%= appname %> App listening at http://%s:%s', host, port);
   });
 
   it.skip('installs and saves common packages', function() {

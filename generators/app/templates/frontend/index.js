@@ -8,20 +8,18 @@ nunjucks.configure(path.join(__dirname, 'views'), {
     express: router
 });
 
-var map_lib = function(to, dir) {
-    to.use('/vendor', express.static(path.join(__dirname, 'node_modules', dir)));
-};
-
 router.use(express.static(path.join(__dirname, 'public')));
-map_lib(router, 'angular');
-map_lib(router, 'angular-route');
-map_lib(router, 'angular-resource');
-map_lib(router, 'angular-strap/dist');
-map_lib(router, 'bootstrap/dist');
+[
+  'angular', 'angular-route', 'angular-resource', 'angular-strap/dist',
+  'bootstrap/dist'
+].map(function(lib) {
+  console.log(path.join(__dirname, 'components', lib));
+  router.use('/vendor', express.static(path.join(__dirname, 'components', lib)));
+})
 
 router.route('/').
     get(function(req, res) {
-        res.render('metaman.html');
+        res.render('main.html');
     });
 
 module.exports = router;

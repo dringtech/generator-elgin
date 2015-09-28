@@ -3,7 +3,7 @@
   "version": "<%= version %>",
   "description": "<%= description %>",
   "scripts": {
-    "start": "node ./bin/app"
+    "start": "DEBUG='main backend*' node ./bin/app"
   },
   "dependencies": {},
   "license": "<%= license %>"
